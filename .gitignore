@@ -1,0 +1,5 @@
+# Ficheros temporales
+*.swp
+
+# Scripts python compilados
+*.pyc
