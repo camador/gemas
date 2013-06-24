@@ -42,7 +42,10 @@ class Gema(pygame.sprite.Sprite):
         self.rect = self.imagen.get_rect()
 
         # Sonido para la gema desaparece o es destruida
-        self.sonido_rota = pygame.mixer.Sound(os.path.join(self.config.dir_snd, 'gemarota.ogg'))
+        self.sonido_rota = pygame.mixer.Sound(os.path.join(self.config.dir_snd, self.parametros['gemarota']))
+
+        # Sonido para cada tick
+        self.sonido_tick = pygame.mixer.Sound(os.path.join(self.config.dir_snd, self.parametros['tick']))
 
         # Fila la posición de inicio
         self.rect.centerx, self.rect.centery = self.__get_spawn()
@@ -72,6 +75,7 @@ class Gema(pygame.sprite.Sprite):
                     self.rect.centerx, self.rect.centery = self.__get_spawn()
                     comprobar_colision = True
 
+
     def tick(self):
         """
             Resta puntos de vida a la gema por cada frame que el jugador pase colisionando con
@@ -91,9 +95,11 @@ class Gema(pygame.sprite.Sprite):
             vida_perdida = (1.0 / self.config.framerate)
             self.vida -= vida_perdida
 
-            # Cada pérdida de vida hace a la gema más pequeña
+            # La gema disminuye su tamaño al llegar a la mitad de su vida
             centro = self.rect.center
-            factor_reduccion = self.vida / self.vida_original
+            factor_reduccion = 1 
+            if self.vida <= (self.vida_original / 2):
+                factor_reduccion = 0.66
             self.imagen = pygame.transform.smoothscale(self.imagen, (int(self.tamanio_x * factor_reduccion), int(self.tamanio_y * factor_reduccion)))
 
             # Reposiciona la nueva imagen usando el centro de la original
@@ -103,6 +109,11 @@ class Gema(pygame.sprite.Sprite):
             # Si no le queda vida la gema es destruida
             if self.vida <= 0:
                 self.romper()
+
+            else:
+                # Indicación sonora de que la gema está perdiendo vida
+                self.sonido_tick.stop()
+                self.sonido_tick.play()
 
         else:
             vida_perdida = 0
