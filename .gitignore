@@ -3,3 +3,6 @@
 
 # Scripts python compilados
 *.pyc
+
+# Base de datos
+lib/gemas.db
