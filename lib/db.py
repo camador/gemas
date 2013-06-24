@@ -147,7 +147,7 @@ class DB():
             Guarda una puntuación
         """
 
-        insert = "insert into puntuaciones (nombre, puntos, fecha) values ('Jugador', {0}, now());".format(puntos)
+        insert = "insert into puntuaciones (nombre, puntos, fecha) values ('Jugador', {0}, date('now'));".format(puntos)
 
         self.cursor.execute(insert)
         self.db.commit()
