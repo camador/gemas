@@ -12,6 +12,7 @@ class DB():
 
     # Datos de conexión
     BASEDATOS = 'lib/gemas.db'
+    SCRIPT = 'install/database.sql'
 
     def __init__(self):
         """
@@ -23,8 +24,26 @@ class DB():
 
         try:
 
+            # Comprueba si existe el fichero con la base de datos
+            try:
+                with open(self.BASEDATOS):
+                    crear_tablas = False
+            except IOError:
+                crear_tablas = True
+
             # Conexión a la base de datos
             self.db = sqlite3.connect(self.BASEDATOS)
+
+            # Si la base de datos está vacía crea las tablas necesarias
+            if crear_tablas:
+
+                # Lee el fichero con el script de creación de las tablas
+                fichero = open(self.SCRIPT)
+                script = fichero.read()
+                fichero.close()
+
+                # Ejecuta el script
+                self.db.executescript(script)
 
             # Permite acceder por nombre de campo los datos devueltos por el cursor
             self.db.row_factory = sqlite3.Row
@@ -32,7 +51,15 @@ class DB():
             # Creación del cursor
             self.cursor = self.db.cursor()
 
-        except Exception, e:
+        except IOError, e:
+            print '\n'
+            print u'Error al abrir el fichero de creación de las tablas: '
+            print '\n\t', e, '\n'
+
+            # Termina la ejecución
+            sys.exit(0)
+            
+        except sqlite3.Error, e:
             print '\n'
             print u'Error de base de datos: '
             print '\n\t', e, '\n'
