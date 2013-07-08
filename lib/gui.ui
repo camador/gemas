@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>428</width>
+    <width>449</width>
     <height>359</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Gemas - Configuración</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="grbJuego">
@@ -30,7 +30,7 @@
      </font>
     </property>
     <property name="title">
-     <string> Juego </string>
+     <string> Resolución y FPS </string>
     </property>
     <property name="flat">
      <bool>false</bool>
@@ -108,7 +108,7 @@
      <rect>
       <x>10</x>
       <y>90</y>
-      <width>411</width>
+      <width>430</width>
       <height>150</height>
      </rect>
     </property>
@@ -126,7 +126,7 @@
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>390</width>
+       <width>410</width>
        <height>120</height>
       </rect>
      </property>
@@ -227,7 +227,7 @@
      <rect>
       <x>10</x>
       <y>250</y>
-      <width>410</width>
+      <width>431</width>
       <height>71</height>
      </rect>
     </property>
@@ -245,13 +245,13 @@
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>381</width>
+       <width>410</width>
        <height>41</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
-       <widget class="QLabel" name="label_8">
+       <widget class="QLabel" name="lblGemasMaxActivas">
         <property name="font">
          <font>
           <weight>50</weight>
@@ -259,12 +259,12 @@
          </font>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>Nº máximo de gemas activas</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLabel" name="label_9">
+       <widget class="QLabel" name="lblGemasRespawn">
         <property name="font">
          <font>
           <weight>50</weight>
@@ -272,12 +272,12 @@
          </font>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>Respawn de las gemas</string>
         </property>
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QLabel" name="label_10">
+       <widget class="QLabel" name="lblEnemigosRespawn">
         <property name="font">
          <font>
           <weight>50</weight>
@@ -285,7 +285,7 @@
          </font>
         </property>
         <property name="text">
-         <string>TextLabel</string>
+         <string>Respawn de los enemigos</string>
         </property>
        </widget>
       </item>
@@ -297,6 +297,15 @@
           <bold>false</bold>
          </font>
         </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>10</number>
+        </property>
+        <property name="value">
+         <number>3</number>
+        </property>
        </widget>
       </item>
       <item row="1" column="1">
@@ -306,6 +315,18 @@
           <weight>50</weight>
           <bold>false</bold>
          </font>
+        </property>
+        <property name="toolTip">
+         <string>Tiempo en milisegundos</string>
+        </property>
+        <property name="minimum">
+         <number>1000</number>
+        </property>
+        <property name="maximum">
+         <number>10000</number>
+        </property>
+        <property name="value">
+         <number>3000</number>
         </property>
        </widget>
       </item>
@@ -317,6 +338,15 @@
           <bold>false</bold>
          </font>
         </property>
+        <property name="toolTip">
+         <string>Tiempo en milisegundos</string>
+        </property>
+        <property name="minimum">
+         <number>1000</number>
+        </property>
+        <property name="maximum">
+         <number>15000</number>
+        </property>
        </widget>
       </item>
      </layout>
@@ -325,7 +355,7 @@
    <widget class="QPushButton" name="pbtGuardar">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>350</x>
       <y>330</y>
       <width>91</width>
       <height>23</height>
