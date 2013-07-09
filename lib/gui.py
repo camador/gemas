@@ -130,16 +130,6 @@ class GUI(QtGui.QWidget):
         sys.exit()
 
     ##
-    ## BARRA DE ESTADO
-    ##
-    def limpia_statusbar(self, *args):
-        """
-            Limpia de mensajes la barra de estado
-        """
-
-        self.status.remove_all(self.status_context_id)
-
-    ##
     ## GUARDAR
     ##
     def on_guardar(self, *args):
@@ -152,22 +142,22 @@ class GUI(QtGui.QWidget):
         # 
 
         # Resolución seleccionada
-        item = self.combo_box_Resoluciones.get_active() 
+        #item = self.combo_box_Resoluciones.get_active() 
 
         # Lista de resoluciones del combobox
-        resoluciones = self.combo_box_Resoluciones.get_model()
+        #resoluciones = self.combo_box_Resoluciones.get_model()
         
         # Recupera el registro correspondiente a la resolución seleccionada
-        resolucion = self.db.get_resolucion(resoluciones[item][0])
+        #resolucion = self.db.get_resolucion(resoluciones[item][0])
 
         # Actualiza la configuración
-        self.db.set_config('VENTANA_ANCHO', resolucion['ancho'])
-        self.db.set_config('VENTANA_ALTO', resolucion['alto'])
+        #self.db.set_config('VENTANA_ANCHO', resolucion['ancho'])
+        #self.db.set_config('VENTANA_ALTO', resolucion['alto'])
 
         # 
         # FPS
         # 
-        self.db.set_config('FRAMERATE', self.spinbutton_fps.get_value_as_int())
+        self.db.set_config('FRAMERATE', self.spinbox_fps.value())
     
         #
         # JUGADOR
@@ -175,34 +165,30 @@ class GUI(QtGui.QWidget):
 
         # Recorre los radiobuttons para localizar el seleccionado
         jugador_seleccionado = 0
-        for radio in self.radiobutton_jugador:
+        #for radio in self.radiobutton_jugador:
 
             # Cuando encuentra el activo sale del bucle
-            if radio.get_active():
-                break;
+        #    if radio.get_active():
+        #        break;
             
             # Si no es el activo incrementa el índice
-            jugador_seleccionado += 1
+        #    jugador_seleccionado += 1
 
         # Actualiza la base de datos
-        self.db.set_config('JUGADOR_TIPO', jugador_seleccionado)
+        #self.db.set_config('JUGADOR_TIPO', jugador_seleccionado)
 
         #
         # GEMAS
         #
 
         # Gemas Máx. Activas 
-        self.db.set_config('GEMA_MAX_ACTIVAS', self.spinbutton_gemas_max_activas.get_value_as_int())
-        self.db.set_config('GEMA_RESPAWN', self.spinbutton_gemas_respawn.get_value_as_int())
+        self.db.set_config('GEMA_MAX_ACTIVAS', self.spinbox_gemas_max_activas.value())
+        self.db.set_config('GEMA_RESPAWN', self.spinbox_gemas_respawn.value())
 
         #
         # ENEMIGOS
         #
-        self.db.set_config('ENEMIGO_RESPAWN', self.spinbutton_enemigos_respawn.get_value_as_int())
-
-
-        # Informa al usuario
-        self.status.push(self.status_context_id, 'Configuración actualizada')
+        self.db.set_config('ENEMIGO_RESPAWN', self.spinbox_enemigos_respawn.value())
 
         # Sale
         self.window_main_destroy()
