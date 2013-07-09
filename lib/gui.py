@@ -78,19 +78,17 @@ class GUI(QtGui.QWidget):
         #
 
         # Resoluciones
-        resolucion_id = 0
         resoluciones = self.db.get_resoluciones()
         for resolucion in resoluciones:
-            self.combobox_resolucion.addItem(resolucion['descripcion'], int(resolucion['id']))
+            self.combobox_resolucion.addItem(resolucion['descripcion'], resolucion['id'])
 
             # Comprueba si se trata de la resolución actual
-           # if resolucion['ancho'] == self.db.get_config('VENTANA_ANCHO') and resolucion['alto'] == self.db.get_config('VENTANA_ALTO'):
-           #     resolucion_actual = resolucion_id
+            if resolucion['ancho'] == self.db.get_config('VENTANA_ANCHO') and resolucion['alto'] == self.db.get_config('VENTANA_ALTO'):
+                resolucion_actual = resolucion['id']
 
-           # resolucion_id += 1
 
-        # Seleccion la resolución actual
-        #self.combobox_resolucion.set_active(resolucion_actual) 
+        # Selecciona la resolución actual
+        self.combobox_resolucion.setCurrentIndex(self.combobox_resolucion.findData(resolucion_actual))
 
         # FPS
         framerate = int(self.db.get_config('FRAMERATE'))
@@ -141,18 +139,15 @@ class GUI(QtGui.QWidget):
         # Resoluciones
         # 
 
-        # Resolución seleccionada
-        #item = self.combo_box_Resoluciones.get_active() 
+        # ID de la resolución seleccionada
+        resolucion_seleccionada = self.combobox_resolucion.currentText()
 
-        # Lista de resoluciones del combobox
-        #resoluciones = self.combo_box_Resoluciones.get_model()
-        
         # Recupera el registro correspondiente a la resolución seleccionada
-        #resolucion = self.db.get_resolucion(resoluciones[item][0])
+        resolucion = self.db.get_resolucion(resolucion_seleccionada)
 
         # Actualiza la configuración
-        #self.db.set_config('VENTANA_ANCHO', resolucion['ancho'])
-        #self.db.set_config('VENTANA_ALTO', resolucion['alto'])
+        self.db.set_config('VENTANA_ANCHO', resolucion['ancho'])
+        self.db.set_config('VENTANA_ALTO', resolucion['alto'])
 
         # 
         # FPS
