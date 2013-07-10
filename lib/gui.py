@@ -131,7 +131,7 @@ class GUI(QtGui.QWidget):
     ## GUARDAR
     ##
     @QtCore.pyqtSlot()
-    def on_guardar(self, *args):
+    def on_guardar(self):
         """
             Guarda en la base de datos los valores de los widgets
         """
