@@ -36,13 +36,13 @@ class GUI(QtGui.QWidget):
         self.spinbox_fps = self.ui.findChild(QtGui.QSpinBox, 'spbFPS')
 
         # Jugador
-#        self.radiobutton_jugador = [
-#                                    self.builder.get_object('radiobuttonJugador1'),
-#                                    self.builder.get_object('radiobuttonJugador2'),
-#                                    self.builder.get_object('radiobuttonJugador3'),
-#                                    self.builder.get_object('radiobuttonJugador4'),
-#                                    self.builder.get_object('radiobuttonJugador5')
-#                                   ]
+        self.radiobutton_jugador = [
+                                    self.ui.findChild(QtGui.QRadioButton, 'rdbJugador1'),
+                                    self.ui.findChild(QtGui.QRadioButton, 'rdbJugador2'),
+                                    self.ui.findChild(QtGui.QRadioButton, 'rdbJugador3'),
+                                    self.ui.findChild(QtGui.QRadioButton, 'rdbJugador4'),
+                                    self.ui.findChild(QtGui.QRadioButton, 'rdbJugador5'),
+                                   ]
 
         # Gemas Máx. Activas
         self.spinbox_gemas_max_activas = self.ui.findChild(QtGui.QSpinBox, 'spbGemasMaxActivas')
@@ -96,7 +96,7 @@ class GUI(QtGui.QWidget):
 
         # Jugador
         jugador_tipo = int(self.db.get_config('JUGADOR_TIPO'))
-        #self.radiobutton_jugador[jugador_tipo].set_active(True)
+        self.radiobutton_jugador[jugador_tipo].setChecked(True)
 
         # Gemas Máx. Activas 
         gemas_max_activas = int(self.db.get_config('GEMA_MAX_ACTIVAS'))
@@ -161,17 +161,17 @@ class GUI(QtGui.QWidget):
 
         # Recorre los radiobuttons para localizar el seleccionado
         jugador_seleccionado = 0
-        #for radio in self.radiobutton_jugador:
+        for radio in self.radiobutton_jugador:
 
             # Cuando encuentra el activo sale del bucle
-        #    if radio.get_active():
-        #        break;
+            if radio.isChecked():
+                break;
             
             # Si no es el activo incrementa el índice
-        #    jugador_seleccionado += 1
+            jugador_seleccionado += 1
 
         # Actualiza la base de datos
-        #self.db.set_config('JUGADOR_TIPO', jugador_seleccionado)
+        self.db.set_config('JUGADOR_TIPO', jugador_seleccionado)
 
         #
         # GEMAS
