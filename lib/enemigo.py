@@ -6,6 +6,7 @@ import pygame
 
 # Otros
 from random import randint
+from random import uniform 
 import os
 
 class Enemigo(pygame.sprite.Sprite):
@@ -46,6 +47,9 @@ class Enemigo(pygame.sprite.Sprite):
                             self.config.eje_x: self.config.velocidad_base * enemigo['factor_velocidad'],
                             self.config.eje_y: self.config.velocidad_base * enemigo['factor_velocidad']
                          }
+
+        # Velocidad de movimiento en el momento de la creación del sprite
+        self.velocidad_original = self.velocidad.copy()
 
     def mover(self, tiempo, sprites_activos):
         """
@@ -123,12 +127,26 @@ class Enemigo(pygame.sprite.Sprite):
 
     def __rebote(self, eje, tiempo):
         """
-            Invierte el sentido del movimiento en el eje especificado y recalcula la
-            posición
+            Provoca un rebote en el eje indicado con un ángulo aleatorio
+
+            El ángulo de rebote aleatorio se consigue modificando la velocidad de uno
+            de los ejes (el que ocasiona el rebote) de forma aleatoria.
         """
 
+        # El rango de velocidad válida es del +/- 20%
+        lento = self.velocidad_original[eje] / 1.2
+        rapido = self.velocidad_original[eje] * 1.2
+        
+        # Genera una velocidad aleatoria dentro de los márgenes permitidos
+        nueva_velocidad = uniform(lento, rapido)
+        
+        # Calcula el sentido de movimiento actual para invertirlo
+        sentido = 1
+        if self.velocidad[eje] > 0:
+            sentido = -1
+            
         # Invierte el sentido del movimiento
-        self.velocidad[eje] *= -1
+        self.velocidad[eje] = nueva_velocidad * sentido
 
         # El enemigo de tipo 0 invierte su imagen al rebotar horizontalmente
         if self.tipo == 0 and eje == self.config.eje_x:
@@ -142,7 +160,7 @@ class Enemigo(pygame.sprite.Sprite):
             self.rect.centerx += distancia
         else:
             self.rect.centery += distancia
-
+            
 
 if __name__ == '__main__':
     print u'Módulo no ejecutable'
